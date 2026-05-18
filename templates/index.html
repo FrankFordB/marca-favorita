@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>FastAPI</title>
+
+    <link rel="stylesheet" href="/static/css/style.css">
+</head>
+
+<body>
+
+    <h1>¿Cuál es la marca preferida de autos en tu familia?</h1>
+
+    <p>{{ marcas }}</p>
+
+    <p>{{ marcas_cantidad }} </p>
+
+    <form method="post" action="/">
+    <p>Ingrese las marcas de auto de su familia: </p>
+        <input
+            type="text"
+            name="letra"
+            id="Input_marcas"
+        >
+
+        <button type="submit">
+            Enviar
+        </button>
+
+    </form>
+    <a href="/"">Nuevo Ingreso</a>
+</body>
+</html>
