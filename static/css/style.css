@@ -281,7 +281,7 @@ section{
  font-size: 15px;
   font-weight: 100;
   left: 50%;
-  top: 78%;
+  top: 38%;
   letter-spacing: 3px;
   text-align: center;
   transform: translate(-50%,-50%);
@@ -293,10 +293,7 @@ section{
 
 .desc button:hover span {
   color: #fff;
-  text-shadow:
-    0 0 1px #000,
-    0 0 2px #000,
-    0 0 6px rgba(0,0,0,0.6);
+  text-shadow: 0 0 10px rgba(255,255,255,0.9), 0 0 3px rgba(255,255,255,1);
 }
 
 .desc button:before {
