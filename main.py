@@ -14,15 +14,15 @@ app.mount("/static", StaticFiles(directory="static"), name="static")
 
 marcas_ingresadas = {
     "marcas": [],
-    "marcas_cantidad": 0
-}
+    "marcas_cantidad": 0,
+    }
 
 # RESETEO DE MARCAS INGRESADAS
 
-
 def nuevo_ingreso():
     marcas_ingresadas["marcas"]=[]
-    marcas_ingresadas["marcas_cantidad"]= 0
+    marcas_ingresadas["marcas_cantidad"] = 0
+    
 
 # FORMATEO DE MARCAS INGRESADAS 
 def formato():
@@ -33,6 +33,15 @@ def formato():
 
     return palabra
 
+# REPETICIONES DE LOS ELEMENTOS
+def contar_repeticiones():
+    repeticiones = {}
+    for elemento in marcas_ingresadas["marcas"]:
+        if elemento in repeticiones:
+            repeticiones[elemento] += 1
+        else:
+            repeticiones[elemento] = 1
+    return repeticiones
 
  
 @app.get("/", response_class=HTMLResponse)
@@ -44,7 +53,8 @@ def home(request: Request):
         name="index.html",
         context={
                "marcas": formato(),            
-               "marcas_cantidad": texto_cantidad   
+               "marcas_cantidad": texto_cantidad,
+               "repeticiones": formato(),
     }
     )
 
@@ -55,20 +65,23 @@ def enviar(
 ):  
     letra = letra.capitalize()
     marcas_ingresadas["marcas"].append(letra)
-    cantidad = len(marcas_ingresadas["marcas"])
-    
-    if cantidad == 0:
-        texto_cantidad = "Todavía no has ingresado ninguna marca"
-    elif cantidad == 1:
+    marcas_ingresadas["marcas_cantidad"] = len(marcas_ingresadas["marcas"])
+
+    cantidad = marcas_ingresadas["marcas_cantidad"]
+
+    if cantidad == 1:
         texto_cantidad = "Usted ingresó 1 marca"
     else:
         texto_cantidad = f"Usted ingresó {cantidad} marcas"
-    
+
+    repeticiones = contar_repeticiones()
+
     return templates.TemplateResponse(
         request=request,
         name="index.html",
         context={
             "marcas": formato(),
             "marcas_cantidad":  texto_cantidad,
+            "repeticiones": repeticiones,
         }
     )
