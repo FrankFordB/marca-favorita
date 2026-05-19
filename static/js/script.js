@@ -27,6 +27,7 @@ document.addEventListener("DOMContentLoaded", () => {
  const div_inicio = document.getElementById("div_inicio");
 
  div_principal.style.display='none'
+ div_inicio.style.display="block"
 
 btn_inicio.addEventListener("click", () => {
 
