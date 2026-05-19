@@ -1,13 +1,23 @@
-document.querySelector("form").addEventListener("submit", async function(event) {
+document.addEventListener("DOMContentLoaded", () => {
+    const miForm = document.getElementById("miForm");
+    const input = document.getElementById("Input_marcas");
 
-    event.preventDefault();
+    if (input) input.focus();
 
-    let formData = new FormData(this);
+    if (miForm) {
+        miForm.addEventListener("submit", async function (e) {
+            e.preventDefault();
 
-    await fetch("/", {
-        method: "POST",
-        body: formData
-    });
+            const formData = new FormData(this);
+            const res = await fetch("/", {
+                method: "POST",
+                body: formData
+            });
 
+            const html = await res.text();
+            document.open();
+            document.write(html);
+            document.close();
+        });
+    }
 });
-document.getElementById("Input_marcas").focus();

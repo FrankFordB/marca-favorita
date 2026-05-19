@@ -11,10 +11,18 @@ templates = Jinja2Templates(directory="templates")
 
 app.mount("/static", StaticFiles(directory="static"), name="static")
 
+
+marcas_ingresadas = {
+    "marcas": [],
+    "marcas_cantidad": 0
+}
+
 # RESETEO DE MARCAS INGRESADAS
+
+
 def nuevo_ingreso():
     marcas_ingresadas["marcas"]=[]
-    marcas_ingresadas["marcas_cantidad"]=" "
+    marcas_ingresadas["marcas_cantidad"]= 0
 
 # FORMATEO DE MARCAS INGRESADAS 
 def formato():
@@ -25,39 +33,42 @@ def formato():
 
     return palabra
 
-marcas_ingresadas = {
-    "marcas": [],
-    "marcas_cantidad": " "
-}
 
-
-
-
+ 
 @app.get("/", response_class=HTMLResponse)
 def home(request: Request):
     nuevo_ingreso()
+    texto_cantidad = "Todavia no has ingresado ninguna marca"
     return templates.TemplateResponse(
         request=request,
         name="index.html",
         context={
-            "marcas": formato(),
-            "marcas_cantidad": f"Usted ingreso {len(marcas_ingresadas['marcas'])} marcas"
-        if len(marcas_ingresadas["marcas"]) > 0
-        else "Usted no ingreso ninguna marca"
+               "marcas": formato(),            
+               "marcas_cantidad": texto_cantidad   
     }
     )
-    
+
 @app.post("/", response_class=HTMLResponse)
 def enviar(
     request: Request,
     letra: str = Form(...)
-):
+):  
+    letra = letra.capitalize()
     marcas_ingresadas["marcas"].append(letra)
+    cantidad = len(marcas_ingresadas["marcas"])
+    
+    if cantidad == 0:
+        texto_cantidad = "Todavía no has ingresado ninguna marca"
+    elif cantidad == 1:
+        texto_cantidad = "Usted ingresó 1 marca"
+    else:
+        texto_cantidad = f"Usted ingresó {cantidad} marcas"
+    
     return templates.TemplateResponse(
         request=request,
         name="index.html",
         context={
             "marcas": formato(),
-            "marcas_cantidad": len(marcas_ingresadas["marcas"]) 
+            "marcas_cantidad":  texto_cantidad,
         }
     )

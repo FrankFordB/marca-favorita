@@ -15,12 +15,12 @@
 
     <p>{{ marcas_cantidad }} </p>
 
-    <form method="post" action="/">
+    <form method="post" action="/" id="miForm">
     <p>Ingrese las marcas de auto de su familia: </p>
         <input
             type="text"
             name="letra"
-            id="Input_marcas"
+            id="Input_marcas" required 
         >
 
         <button type="submit">
@@ -28,6 +28,8 @@
         </button>
 
     </form>
-    <a href="/"">Nuevo Ingreso</a>
+    <a href="/">Nuevo Ingreso</a>
+    <script src="/static/js/script.js"></script>
 </body>
+
 </html>
