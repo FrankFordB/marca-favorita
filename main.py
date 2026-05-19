@@ -15,6 +15,7 @@ app.mount("/static", StaticFiles(directory="static"), name="static")
 marcas_ingresadas = {
     "marcas": [],
     "marcas_cantidad": 0,
+    "marcas_mayor":[]
     }
 
 # RESETEO DE MARCAS INGRESADAS
@@ -32,6 +33,14 @@ def formato():
         palabra = palabra + i + " " 
 
     return palabra
+# FORMATO MARCA MAS ELEGIDA
+def formato_elegida():
+    palabra = ""
+    for i in marcas_ingresadas["marcas_mayor"]:
+        palabra += i
+    return palabra
+
+
 
 # REPETICIONES DE LOS ELEMENTOS
 def contar_repeticiones():
@@ -43,7 +52,22 @@ def contar_repeticiones():
             repeticiones[elemento] = 1
     return repeticiones
 
- 
+# MARCA MAS ELEGIDA
+def mayor_marca():
+    repeticiones_auto = contar_repeticiones()
+
+    mayor = 0
+    marca_mayor = []
+
+    for marca in repeticiones_auto:
+        if repeticiones_auto[marca] > mayor:
+            mayor = repeticiones_auto[marca]
+            marca_mayor = [marca]
+        elif repeticiones_auto[marca] == mayor:
+            marca_mayor.append( " y " + marca + " son las elegidas por tu familia")
+
+    return marca_mayor
+
 @app.get("/", response_class=HTMLResponse)
 def home(request: Request):
     nuevo_ingreso()
@@ -54,7 +78,6 @@ def home(request: Request):
         context={
                "marcas": formato(),            
                "marcas_cantidad": texto_cantidad,
-               "repeticiones": formato(),
     }
     )
 
@@ -75,7 +98,8 @@ def enviar(
         texto_cantidad = f"Usted ingresó {cantidad} marcas"
 
     repeticiones = contar_repeticiones()
-
+    mayor= mayor_marca()
+    marcas_ingresadas["marcas_mayor"] = mayor
     return templates.TemplateResponse(
         request=request,
         name="index.html",
@@ -83,5 +107,6 @@ def enviar(
             "marcas": formato(),
             "marcas_cantidad":  texto_cantidad,
             "repeticiones": repeticiones,
+            "mayor": formato_elegida(),
         }
     )
