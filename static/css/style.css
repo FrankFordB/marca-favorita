@@ -94,10 +94,8 @@ section{
 }
 
 .logo{
-  position:relative;
-  left:50%;
-  margin-top:10px;
-  margin-left:-121px;
+  display: block;
+  margin: 10px auto 0;
   background:transparent;
 }
 .desc{
