@@ -64,7 +64,7 @@ def mayor_marca():
             mayor = repeticiones_auto[marca]
             marca_mayor = [marca]
         elif repeticiones_auto[marca] == mayor:
-            marca_mayor.append( " y " + marca + " son las elegidas por tu familia")
+            marca_mayor.append(" y "  + marca if len(marcas_ingresadas["marcas_mayor"]) == 1 else ", " + marca)
 
     return marca_mayor
 
@@ -107,6 +107,6 @@ def enviar(
             "marcas": formato(),
             "marcas_cantidad":  texto_cantidad,
             "repeticiones": repeticiones,
-            "mayor": formato_elegida(),
+            "mayor": formato_elegida() + (" es la marca más elegida" if len(marcas_ingresadas["marcas_mayor"]) == 1 else " son las marcas más elegidas"),
         }
     )

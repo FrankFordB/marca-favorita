@@ -67,7 +67,20 @@
     opacity: 1;
   }
 }
+/* MAQUINA DE ESCRIBIR*/
+.maquina-escribir {
+  
+  
+}
 
+@keyframes escribir {
+  from { width: 0; }
+  to { width: 32ch; }
+}
+
+@keyframes parpadeo {
+  50% { border-right-color: transparent; }
+}
 body{
   font-family:'Jura';
   background:#fff;
@@ -101,12 +114,67 @@ section{
 .desc{
   font-size:1em;
   color:#000;
-  text-align:center;
   text-transform:uppercase;
   letter-spacing:1px;
   line-height: 1.6;
   opacity: 0;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
   animation: introEntrance 1.2s ease-out 0.45s forwards;
+}
+
+.linea {
+  display: block;
+  overflow: hidden;
+  white-space: nowrap;
+  width: 0;
+  border-right: 3px solid transparent;
+}
+
+.l1 {
+  text-align: center;
+  animation:
+    escribir-l1 2.2s steps(34) 0.45s forwards,
+    parpadeo 0.75s step-end 0.45s 3,
+    ocultar-cursor 0s linear 2.65s forwards;
+}
+
+.l2 {
+  text-align: center;
+  animation:
+    escribir-l2 1.4s steps(22) 2.65s forwards,
+    parpadeo 0.75s step-end 2.65s 2,
+    ocultar-cursor 0s linear 4.05s forwards;
+}
+
+.l3 {
+  text-align: center;
+  animation:
+    escribir-l3 0.4s steps(6) 4.05s forwards,
+    parpadeo 0.75s step-end 4.05s 1,
+    ocultar-cursor 0s linear 4.45s forwards;
+}
+
+@keyframes escribir-l1 {
+  from { width: 0; border-right-color: black; }
+  to   { width: 36ch; border-right-color: black; }
+}
+
+@keyframes escribir-l2 {
+  from { width: 0; border-right-color: black; }
+  to   { width: 26ch; border-right-color: black; }
+}
+
+@keyframes escribir-l3 {
+  from { width: 0; border-right-color: black; }
+  to   { width: 8ch; border-right-color: black; }
+}
+
+@keyframes ocultar-cursor {
+  to { border-right-color: transparent; }
 }
 @keyframes letterSpacing{
   0%{
@@ -136,7 +204,7 @@ section{
   --color-four: #bf4a1d80;
   --color-five: #ffbf4740;
   --time-animation: 2s;
-  --size: 1; /* You can change the size */
+  --size: 1; 
   position: relative;
   width: 100px;
   height: 100px;
@@ -246,7 +314,9 @@ section{
  letter-spacing:2px;
  background-color: transparent;
  position: relative;
- display: block;
+ display: flex;
+ justify-content: center;
+ align-items: center;
  width: 360px;
  height: 130px;
  margin: 6px auto 0;
@@ -255,6 +325,8 @@ section{
  isolation: isolate;
  z-index: 2;
  cursor: pointer;
+ opacity: 0;
+ animation: fadeInPlace 0.6s ease-out 4.45s forwards;
 }
 
 .desc button:after {
@@ -312,3 +384,4 @@ section{
  clip-path: circle(100% at 50% 78%);
 }
 
+/* BOTON +*/
